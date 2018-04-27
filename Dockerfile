@@ -1,6 +1,6 @@
 FROM php:7-apache
 RUN apt-get update && apt-get install -y wget
-ENV VERSION_GLPI 9.2.2
+ENV VERSION_GLPI 9.2.3
 WORKDIR /var/www/html/
 RUN wget "https://github.com/glpi-project/glpi/releases/download/${VERSION_GLPI}/glpi-${VERSION_GLPI}.tgz" -O - | tar -xz && mv glpi/* . 
 RUN mv glpi/.ht* . && rm -rf glpi

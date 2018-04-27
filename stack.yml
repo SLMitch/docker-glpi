@@ -1,0 +1,20 @@
+version: '3.3'
+
+services:
+  glpi:
+      image: slmitch/glpi:latest
+    ports:
+      - 8042:80
+    environment:
+      TZ: Europe/Paris
+    volumes:
+      - /docker/glpi/config_db.php:/var/www/html/config/config_db.php:ro
+      - glpi_plugins:/var/www/html/plugins
+  mysql:
+    image: mysql:5.7.21
+    volumes:
+      - glpi_mysql:/var/lib/mysql/
+    environment:
+      TZ: Europe/Paris
+      MYSQL_DATABASE: glpi
+      MYSQL_ROOT_PASSWORD: glpi
