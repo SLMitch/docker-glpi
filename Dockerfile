@@ -16,9 +16,8 @@ RUN pecl install apcu
 RUN echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini
 
 ENV VERSION_GLPI 9.3.1
-ENV VERSION_GLPI2 9.3
 #GLPI
 WORKDIR /var/www/html/
-RUN wget "https://github.com/glpi-project/glpi/releases/download/${VERSION_GLPI}/glpi-${VERSION_GLPI2}.tgz" -O - | tar -xz && mv glpi/* . 
+RUN wget "https://github.com/glpi-project/glpi/releases/download/${VERSION_GLPI}/glpi-${VERSION_GLPI}.tgz" -O - | tar -xz && mv glpi/* . 
 RUN mv glpi/.ht* . && rm -rf glpi
 RUN chown -R www-data .
