@@ -31,7 +31,7 @@ services:
       - /docker/glpi/config_db.php:/var/www/html/config/config_db.php:ro
       - /docker/volumes/glpi_plugins:/var/www/html/plugins
   mysql:
-    image: it-docker-public-binary-repository.digiplug.com/mysql:5.7.21
+    image: mysql:5.7.21
     volumes:
       - /docker/volumes/glpi_mysql:/var/lib/mysql/
     environment:
