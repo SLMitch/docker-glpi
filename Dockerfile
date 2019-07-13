@@ -15,7 +15,7 @@ RUN docker-php-ext-install opcache
 RUN pecl install apcu
 RUN echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini
 
-ENV VERSION_GLPI 9.3.2
+ENV VERSION_GLPI 9.4.3
 #GLPI
 WORKDIR /var/www/html/
 RUN wget "https://github.com/glpi-project/glpi/releases/download/${VERSION_GLPI}/glpi-${VERSION_GLPI}.tgz" -O - | tar -xz && mv glpi/* . 
