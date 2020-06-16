@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y wget \
         libjpeg62-turbo-dev \
         libpng-dev  libldap2-dev libxml2-dev  && rm -rf /var/cache/apt
 
-RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ \
+RUN docker-php-ext-configure gd  \
     && docker-php-ext-install -j$(nproc) gd
 RUN docker-php-ext-install -j$(nproc) ldap mysqli xmlrpc soap
 
