@@ -13,12 +13,11 @@ RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
 
 # Install opcache 
 RUN docker-php-ext-install opcache
-
+RUN docker-php-ext-install intl
 # Install APCu 
-RUN pecl install apcu
+RUN printf "\n" |pecl install apcu
 RUN echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini
-
-ENV VERSION_GLPI 9.5.1
+ENV VERSION_GLPI 9.5.3
 #GLPI
 WORKDIR /var/www/html/
 RUN wget "https://github.com/glpi-project/glpi/releases/download/${VERSION_GLPI}/glpi-${VERSION_GLPI}.tgz" -O - | tar -xz && mv glpi/* . 
