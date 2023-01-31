@@ -15,7 +15,7 @@ You can start a stack with this command
 docker stack deploy glpi --compose-file stack.yml 
 ```
 
-With this stack file for example (I use folder /docker/volumes/glpi_plugins for my plugins, /docker/volumes/glpi_mysql for mysql data, and /docker/glpi/config_db.php you can see below)
+With this stack file for example (I use folder /docker/volumes/glpi_plugins for my plugins, /docker/volumes/glpi_mysql for mysql data, /docker/volumes/glpi_files for all uploaded files and  /docker/volumes/glpi_conf/ (with db config and glpicrypt key) you can see below)
 
 ```sh
 version: '3.3'
@@ -25,37 +25,16 @@ services:
     image: slmitch/glpi
     ports:
       - 8042:80
-    environment:
-      TZ: Europe/Paris
     volumes:
-      - /docker/glpi/config_db.php:/var/www/html/config/config_db.php:ro
+      - /docker/volumes/glpi_conf:/var/www/html/config/
       - /docker/volumes/glpi_plugins:/var/www/html/plugins
+      - /docker/volumes/glpi_files:/var/www/html/files
   mysql:
-    image: mysql:5.7.21
+    image: mysql:5.7
     volumes:
       - /docker/volumes/glpi_mysql:/var/lib/mysql/
     environment:
-      TZ: Europe/Paris
       MYSQL_DATABASE: glpi
       MYSQL_ROOT_PASSWORD: glpi
 ```
-
-For the first run, remove the 
-"      - /docker/glpi/config_db.php:/var/www/html/config/config_db.php:ro"
-line, in order to have the initial setup.
-
-After this, add the line on stack file, create the config_db.php file with 
-```php
-<?php
-class DB extends DBmysql {
-   public $dbhost     = 'mysql';
-   public $dbuser     = 'root';
-   public $dbpassword = 'glpi';
-   public $dbdefault  = 'glpi';
-}
-```
-and deploy again the stack.
-
-
-When the database is started, on your container, you can extract the /var/www/html/config/config_db.php
 
